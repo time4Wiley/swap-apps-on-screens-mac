@@ -1,20 +1,23 @@
-# Top Window Per Screen Detector
+# Swap Apps on Screens - Mac
 
-A Swift 6 application that detects the topmost window on each screen of a dual-monitor (or multi-monitor) MacBook setup.
+A Swift 6 application that detects and swaps the topmost windows between screens on a dual-monitor (or multi-monitor) Mac setup.
 
 ## Features
 
 - Detects all connected screens
 - Finds the topmost window on each screen
+- Swaps window positions between screens (using native AX API or SizeUp)
 - Shows detailed window information (app name, window title, position, size, PID)
 - Includes accessibility permission checking and prompting
 - Provides debug information about all visible windows
+- **SizeUp Integration**: Reliable window swapping using SizeUp's proven functionality
 
 ## Requirements
 
 - macOS 14.0 or later
 - Swift 6.0
 - Accessibility permissions
+- SizeUp (for the SizeUpSwapper executable) - [Download here](https://www.irradiatedsoftware.com/sizeup/)
 
 ## Building
 
@@ -30,14 +33,48 @@ swift build
 swift build -c release
 ```
 
+## Installation
+
+For system-wide access and Alfred integration:
+
+```bash
+# Run the installation script
+./install.sh
+```
+
+This will:
+- Build all executables in release mode
+- Install them to `~/.local/bin`
+- Create a convenient `swap-screens` symlink
+- Display the path for Alfred workflow integration
+
+**Target path for Alfred workflow:**
+```
+~/.local/bin/SizeUpSwapper
+```
+or
+```
+~/.local/bin/swap-screens
+```
+
 ## Running
 
+### Window Detector (Testing Detection)
 ```bash
 # Run the debug build
 .build/debug/TopWindowDetector
 
-# Or run the release build
-.build/release/TopWindowDetector
+# Or use Swift run
+swift run TopWindowDetector
+```
+
+### Window Swapper (Swap Windows Between Screens)
+```bash
+# Run the debug build
+.build/debug/SwapWindows
+
+# Or use Swift run
+swift run SwapWindows
 ```
 
 ## Granting Accessibility Permissions
@@ -54,8 +91,9 @@ To manually grant permissions:
 3. Click the lock icon to make changes
 4. Add TopWindowDetector to the list (or enable if already present)
 
-## Output Example
+## Output Examples
 
+### TopWindowDetector Output
 ```
 Top Window Per Screen Detector
 ==============================
@@ -77,15 +115,44 @@ Screen 2: LG HDR 4K
   Position: (1728, 0)
   Top Window:
     Window ID: 31733, App: Safari, Title: "GitHub", Position: (2608, 452), Size: 2080x1256, PID: 6559
+```
 
-Debug Information:
-==================
-Total windows detected: 15
+### SwapWindows Output
+```
+Window Swapper for Dual Screens
+================================
 
-First 10 windows (front to back):
-  1. Window ID: 37691, App: Code, Title: "WindowDetector.swift", Position: (0, 25), Size: 1728x1092, PID: 85514
-  2. Window ID: 31733, App: Safari, Title: "GitHub", Position: (2608, 452), Size: 2080x1256, PID: 6559
-  ... and 5 more
+Checking accessibility permissions...
+✓ Accessibility permissions granted
+
+Detecting screens and windows...
+
+Current window configuration:
+-----------------------------
+
+Screen 1: Built-in Retina Display
+  Current top window: Code - WindowDetector.swift
+  Position: (0, 25)
+
+Screen 2: LG HDR 4K
+  Current top window: Safari - GitHub
+  Position: (2608, 452)
+
+🔄 Swapping windows...
+✅ Successfully swapped windows
+
+New window configuration:
+-------------------------
+
+Screen 1: Built-in Retina Display
+  New top window: Safari - GitHub
+  Position: (0, 25)
+
+Screen 2: LG HDR 4K
+  New top window: Code - WindowDetector.swift
+  Position: (2608, 452)
+
+✨ Done!
 ```
 
 ## Architecture
@@ -96,16 +163,24 @@ The project is organized into:
   - `WindowInfo.swift`: Data structure for window information
   - `WindowDetector.swift`: Core logic for detecting windows
   - `AccessibilityHelper.swift`: Utilities for checking and requesting permissions
+  - `WindowSwapper.swift`: Logic for swapping window positions using AXUIElement
   
-- **TopWindowDetector**: Main executable that uses WindowCore to detect and display window information
+- **TopWindowDetector**: Executable for testing window detection
+- **SwapWindows**: Main executable that swaps the topmost windows between screens
 
-## Next Steps
+## How It Works
 
-This detector serves as the foundation for implementing window swapping functionality. The window detection logic can be extended to:
+1. **Detection Phase**: Uses `CGWindowListCopyWindowInfo` to get all on-screen windows, already sorted front-to-back
+2. **Screen Mapping**: Intersects window bounds with screen frames to determine which screen each window belongs to
+3. **AX Element Creation**: Creates accessibility elements for the topmost windows using `AXUIElementCreateApplication`
+4. **Position Reading**: Gets current window positions via `AXUIElementCopyAttributeValue` with `kAXPositionAttribute`
+5. **Position Swapping**: Sets new positions using `AXUIElementSetAttributeValue`
 
-- Swap window positions between screens
-- Save and restore window layouts
-- Create keyboard shortcuts for window management
+## Limitations
+
+- Some applications may not allow their windows to be repositioned programmatically (e.g., full-screen apps, certain system windows)
+- Requires accessibility permissions to function
+- Only swaps the topmost window on each screen (not all windows)
 
 ## Troubleshooting
 
@@ -123,3 +198,17 @@ This detector serves as the foundation for implementing window swapping function
 - Ensure you have Swift 6.0 or later installed
 - Check that you're on macOS 14.0 or later
 - Try cleaning the build directory: `swift package clean`
+
+### Window swap fails
+- Some applications don't allow window repositioning (e.g., Microsoft Office, system dialogs)
+- Try with different applications like Safari, Terminal, or Finder
+- Ensure windows are not in full-screen mode
+- Check that both screens have at least one visible window
+
+## Future Enhancements
+
+- Add keyboard shortcut support
+- Create a menu bar application
+- Support for swapping specific windows by ID
+- Save and restore window layouts
+- Support for more than 2 screens with customizable swap patterns

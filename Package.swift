@@ -13,6 +13,18 @@ let package = Package(
             name: "TopWindowDetector",
             targets: ["TopWindowDetector"]
         ),
+        .executable(
+            name: "SwapWindows",
+            targets: ["SwapWindows"]
+        ),
+        .executable(
+            name: "DiagnoseWindows",
+            targets: ["DiagnoseWindows"]
+        ),
+        .executable(
+            name: "SizeUpSwapper",
+            targets: ["SizeUpSwapper"]
+        ),
     ],
     targets: [
         .target(
@@ -24,6 +36,27 @@ let package = Package(
         ),
         .executableTarget(
             name: "TopWindowDetector",
+            dependencies: ["WindowCore"],
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
+        ),
+        .executableTarget(
+            name: "SwapWindows",
+            dependencies: ["WindowCore"],
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
+        ),
+        .executableTarget(
+            name: "DiagnoseWindows",
+            dependencies: ["WindowCore"],
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
+        ),
+        .executableTarget(
+            name: "SizeUpSwapper",
             dependencies: ["WindowCore"],
             swiftSettings: [
                 .swiftLanguageMode(.v6)

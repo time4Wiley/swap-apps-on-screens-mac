@@ -1,7 +1,7 @@
 import Foundation
 import CoreGraphics
 
-public struct WindowInfo {
+public struct WindowInfo: Sendable {
     public let id: CGWindowID
     public let ownerPID: pid_t
     public let frame: CGRect
