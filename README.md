@@ -23,7 +23,7 @@ A Swift 6 application that detects and swaps the topmost windows between screens
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/wei/swap-apps-on-screens-mac.git
 cd swap-apps-on-screens-mac
 
 # Build using Swift Package Manager
@@ -212,3 +212,20 @@ The project is organized into:
 - Support for swapping specific windows by ID
 - Save and restore window layouts
 - Support for more than 2 screens with customizable swap patterns
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+Wei
+
+## Acknowledgments
+
+- [SizeUp](https://www.irradiatedsoftware.com/sizeup/) for providing reliable window management functionality
+- The Swift community for excellent documentation and examples
