@@ -70,6 +70,10 @@ struct SizeUpSwapperApp {
             exit(1)
         }
         
+        // Save the currently active application
+        let activeApp = NSWorkspace.shared.frontmostApplication
+        print("\n💾 Current active app: \(activeApp?.localizedName ?? "Unknown")")
+        
         // Perform the swap using SizeUp
         print("\n🔄 Swapping windows using SizeUp...")
         
@@ -109,6 +113,13 @@ struct SizeUpSwapperApp {
             } else {
                 print("  ❌ Could not activate application with PID \(window.ownerPID)")
             }
+        }
+        
+        // Restore the originally active application
+        if let activeApp = activeApp {
+            print("\n🔄 Restoring active app: \(activeApp.localizedName ?? "Unknown")")
+            activeApp.activate()
+            Thread.sleep(forTimeInterval: 0.1)
         }
         
         print("\n✨ Done! Windows should now be swapped.")
