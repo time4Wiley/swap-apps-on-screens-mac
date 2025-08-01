@@ -19,11 +19,24 @@ A Swift 6 application that detects and swaps the topmost windows between screens
 - Accessibility permissions
 - SizeUp (for the SizeUpSwapper executable) - [Download here](https://www.irradiatedsoftware.com/sizeup/)
 
+## Installation
+
+### Via Homebrew (Recommended)
+
+```bash
+brew tap time4Wiley/tap
+brew install swap-apps-on-screens
+```
+
+### Manual Installation
+
+Download the latest release from the [releases page](https://github.com/time4Wiley/swap-apps-on-screens-mac/releases) or build from source.
+
 ## Building
 
 ```bash
 # Clone the repository
-git clone https://github.com/wei/swap-apps-on-screens-mac.git
+git clone https://github.com/time4Wiley/swap-apps-on-screens-mac.git
 cd swap-apps-on-screens-mac
 
 # Build using Swift Package Manager
@@ -33,7 +46,7 @@ swift build
 swift build -c release
 ```
 
-## Installation
+## Local Installation
 
 For system-wide access and Alfred integration:
 
