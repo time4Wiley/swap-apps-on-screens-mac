@@ -24,7 +24,7 @@ A Swift 6 application that detects and swaps the topmost windows between screens
 ### Via Homebrew (Recommended)
 
 ```bash
-brew tap time4Wiley/foam
+brew tap time4Wiley/tap
 brew install swap-apps-on-screens
 ```
 
