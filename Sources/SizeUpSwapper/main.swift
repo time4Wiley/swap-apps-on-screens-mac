@@ -79,7 +79,7 @@ struct SizeUpSwapperApp {
             
             // First, we need to activate the window's application
             if let app = NSRunningApplication(processIdentifier: window.ownerPID) {
-                app.activate(options: .activateIgnoringOtherApps)
+                app.activate()
                 
                 // Give the app time to activate
                 Thread.sleep(forTimeInterval: 0.2)

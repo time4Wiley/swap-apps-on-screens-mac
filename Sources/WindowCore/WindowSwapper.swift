@@ -31,7 +31,7 @@ public struct WindowSwapper {
         }
         
         if debug {
-            print("  ℹ️ Found \(CFArrayGetCount(axWindowsRef as! CFArray)) windows for \(window.appName ?? "Unknown")")
+            print("  ℹ️ Found \(CFArrayGetCount((axWindowsRef as! CFArray))) windows for \(window.appName ?? "Unknown")")
         }
         
         // Find the window with matching ID

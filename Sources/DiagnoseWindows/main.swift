@@ -56,10 +56,10 @@ struct DiagnoseWindowsApp {
                     "AXTrusted" as CFString,
                     &trustedRef
                 ) == .success {
-                    print("  AX Trusted: \(trustedRef)")
+                    print("  AX Trusted: \(String(describing: trustedRef))")
                 }
             } else if CFGetTypeID(axWindowsRef) == CFArrayGetTypeID() {
-                let windowCount = CFArrayGetCount(axWindowsRef as! CFArray)
+                let windowCount = CFArrayGetCount((axWindowsRef as! CFArray))
                 print("  ✅ Found \(windowCount) AX windows")
                 
                 // List window IDs

@@ -7,7 +7,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Installation directory
-INSTALL_DIR="$HOME/.local/bin"
+INSTALL_DIR="$HOME/bin"
 
 echo "${BLUE}=== Swap Apps on Screens - Installation Script ===${NC}\n"
 
@@ -67,7 +67,7 @@ echo "  ${BLUE}$INSTALL_DIR/swap-screens${NC}"
 if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
     echo "\n${RED}⚠️  Warning: $INSTALL_DIR is not in your PATH${NC}"
     echo "Add this line to your ~/.zshrc:"
-    echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+    echo "  export PATH=\"\$HOME/bin:\$PATH\""
 fi
 
 echo "\n${GREEN}Don't forget to grant Accessibility permissions to:${NC}"

@@ -44,17 +44,17 @@ For system-wide access and Alfred integration:
 
 This will:
 - Build all executables in release mode
-- Install them to `~/.local/bin`
+- Install them to `~/bin`
 - Create a convenient `swap-screens` symlink
 - Display the path for Alfred workflow integration
 
 **Target path for Alfred workflow:**
 ```
-~/.local/bin/SizeUpSwapper
+~/bin/SizeUpSwapper
 ```
 or
 ```
-~/.local/bin/swap-screens
+~/bin/swap-screens
 ```
 
 ## Running
